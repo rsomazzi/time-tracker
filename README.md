@@ -1,58 +1,16 @@
-# Consonum Business Suite
+# Consonum Time Tracker
 
-A collection of modular Laravel packages for small business operations.
+A buzzer-style time tracking application built with Laravel 12, Inertia.js, and React.
 
-## Architecture
+## Features
 
-This project uses a modular architecture where each business application is a standalone Laravel package that can:
-- Run independently as its own Laravel application
-- Be integrated as a module in a larger Laravel application
-- Be published to Packagist for distribution
-
-## Applications
-
-### Time Tracker
-**Status:** Complete
-**Location:** `packages/consonum/time-tracker`
-
-A buzzer-style time tracking application with:
-- Timer start/stop/pause/resume functionality
-- Project and category management
-- Time entry reports with filtering
-- CSV export for invoicing
-- Multi-tenant support via table prefixes
-
-[View Documentation](packages/consonum/time-tracker/README.md)
-
-### CRM (Planned)
-**Status:** Planned
-**Location:** `packages/consonum/crm`
-
-Customer relationship management:
-- Contact management
-- Communication history
-- Deal tracking
-- Task management
-
-### Inventory (Planned)
-**Status:** Planned
-**Location:** `packages/consonum/inventory`
-
-Simple inventory management:
-- Product catalog
-- Stock tracking
-- Low stock alerts
-- Supplier management
-
-### Workflows (Planned)
-**Status:** Planned
-**Location:** `packages/consonum/workflows`
-
-Simple workflow automation:
-- Task templates
-- Approval workflows
-- Status tracking
-- Notifications
+- **Buzzer-style timer** - One-click start on any category
+- **Auto task switching** - Previous task auto-saves when switching
+- **Pause/Resume** - Temporarily stop without ending entry
+- **Real-time display** - Live HH:MM:SS countdown
+- **Reports** - Filter by date range and project
+- **CSV Export** - Download for invoicing/spreadsheets
+- **Multi-tenant ready** - Configurable table prefix
 
 ## Tech Stack
 
@@ -112,9 +70,6 @@ php artisan pail           # Log viewer
 # Run all tests
 php artisan test
 
-# Run with coverage
-php artisan test --coverage
-
 # Lint PHP code
 ./vendor/bin/pint
 ```
@@ -124,77 +79,62 @@ php artisan test --coverage
 ```bash
 # Fresh migration with seeding
 php artisan migrate:fresh --seed
-
-# Reset specific package tables
-php artisan migrate:refresh --path=packages/consonum/time-tracker/src/database/migrations
-```
-
-## Package Development
-
-Each package follows this structure:
-
-```
-packages/consonum/[package-name]/
-├── composer.json           # Package metadata
-├── README.md              # Package documentation
-├── docs/                  # Detailed documentation
-└── src/
-    ├── config/            # Package configuration
-    ├── database/
-    │   ├── migrations/    # Database migrations
-    │   └── seeders/       # Test data seeders
-    ├── Http/Controllers/  # API controllers
-    ├── Models/            # Eloquent models
-    ├── Providers/         # Service provider
-    ├── Traits/            # Reusable traits
-    └── routes/            # Route definitions
-```
-
-### Creating a New Package
-
-1. Create the package structure in `packages/consonum/[name]`
-2. Add repository to main `composer.json`
-3. Require the package: `composer require consonum/[name]`
-4. Package auto-discovers via service provider
-
-### Publishing Packages
-
-Each package can be published to its own GitHub repository and Packagist:
-
-```bash
-# From package directory
-git init
-git remote add origin git@github.com:consonum/[package-name].git
-git push -u origin main
 ```
 
 ## Project Structure
 
 ```
-time-tracker-laravel/
+time-tracker/
 ├── app/
-│   └── Models/User.php    # Extended with package traits
+│   └── Models/User.php         # User with HasTimeTracking trait
 ├── packages/
 │   └── consonum/
-│       └── time-tracker/  # Time Tracker package
-├── resources/
-│   └── js/
-│       ├── Components/    # React components
-│       └── Pages/         # Inertia pages
-├── database/
-│   └── seeders/           # Main seeders (call package seeders)
-└── routes/
-    └── web.php            # Auth routes, package routes auto-load
+│       └── time-tracker/       # Core package (installable separately)
+│           ├── src/
+│           │   ├── Http/Controllers/
+│           │   ├── Models/
+│           │   ├── database/migrations/
+│           │   └── routes/
+│           └── docs/
+├── resources/js/
+│   ├── Components/TimeTracker/ # React components
+│   └── Pages/TimeTracker/      # Dashboard & Reports pages
+└── routes/web.php              # Auth routes
 ```
 
-## Contributing
+## Using as Installable Package
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
+The core time tracking functionality is in `packages/consonum/time-tracker` and can be installed in other Laravel projects:
+
+```bash
+composer require consonum/time-tracker
+```
+
+See [Package Documentation](packages/consonum/time-tracker/README.md) for installation instructions.
+
+## Routes
+
+| Route | Description |
+|-------|-------------|
+| `/time-tracker` | Dashboard with timer and project cards |
+| `/time-tracker/reports` | Reports with filtering and export |
+| `/time-tracker/timer/*` | Timer API endpoints |
+| `/time-tracker/entries/*` | Time entry CRUD endpoints |
+
+## Documentation
+
+- [Package README](packages/consonum/time-tracker/README.md) - Installation & API reference
+- [Quick Start Guide](packages/consonum/time-tracker/docs/QUICKSTART.md)
+- [Timer Guide](packages/consonum/time-tracker/docs/TIMER_GUIDE.md)
+- [Reports Guide](packages/consonum/time-tracker/docs/REPORTS_GUIDE.md)
+- [UAT Test Plan](packages/consonum/time-tracker/docs/UAT_TEST_PLAN.md)
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License - see [LICENSE](packages/consonum/time-tracker/LICENSE) file.
+
+## Credits
+
+Developed by [Consonum GmbH](https://consonum.ch)
+
+Part of the [Consonum Business Suite](../README.md).

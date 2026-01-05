@@ -1,22 +1,47 @@
 {
     "name": "consonum/time-tracker",
-    "description": "Modular Time Tracking package for Laravel with Inertia + React",
+    "description": "Modular buzzer-style time tracking package for Laravel with Inertia.js and React frontend",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "time-tracking",
+        "timer",
+        "inertia",
+        "react",
+        "timesheet",
+        "project-management"
+    ],
+    "homepage": "https://github.com/consonum/time-tracker",
     "authors": [
         {
-            "name": "Consonum",
-            "email": "info@consonum.ch"
+            "name": "Consonum GmbH",
+            "email": "info@consonum.ch",
+            "homepage": "https://consonum.ch"
         }
     ],
+    "support": {
+        "issues": "https://github.com/consonum/time-tracker/issues",
+        "source": "https://github.com/consonum/time-tracker"
+    },
     "require": {
         "php": "^8.2",
         "illuminate/support": "^11.0|^12.0",
         "inertiajs/inertia-laravel": "^2.0"
     },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.0"
+    },
     "autoload": {
         "psr-4": {
-            "Consonum\\TimeTracker\\": "src/"
+            "Consonum\\TimeTracker\\": "src/",
+            "Consonum\\TimeTracker\\Database\\Seeders\\": "src/database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Consonum\\TimeTracker\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -25,6 +50,12 @@
                 "Consonum\\TimeTracker\\Providers\\TimeTrackerServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "stable",
     "prefer-stable": true
