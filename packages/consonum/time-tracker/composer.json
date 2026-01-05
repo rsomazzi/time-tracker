@@ -1,0 +1,31 @@
+{
+    "name": "consonum/time-tracker",
+    "description": "Modular Time Tracking package for Laravel with Inertia + React",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Consonum",
+            "email": "info@consonum.ch"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0",
+        "inertiajs/inertia-laravel": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Consonum\\TimeTracker\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Consonum\\TimeTracker\\Providers\\TimeTrackerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
